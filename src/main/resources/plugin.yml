@@ -1,0 +1,12 @@
+name: AutoMessage
+description: Auto message plugin.
+version: '${project.version}'
+main: org.robinn.automessage.AutoMessage
+api-version: 1.20
+author: RobiNN
+website: https://github.com/RobiNN1/AutoMessage-plugin
+
+commands:
+  automessage:
+    description: Main auto message command.
+    usage: /<command> [options...]

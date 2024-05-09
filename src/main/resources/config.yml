@@ -1,0 +1,9 @@
+interval: 900 # in seconds
+prefix: '<white>[<b>Server</b>] '
+messages:
+  - '&eThis is default message 1. Open <click:run_command:/rules>&e/rules</click>'
+  - '&cThis is default message 2. Open <click:open_url:https://google.com><green>Google</click>'
+  - '<white>This is default message 3.'
+  - '&bThis is default message 4.'
+  - '&6This is default message 5.'
+  - '&7This is default message 6.'
