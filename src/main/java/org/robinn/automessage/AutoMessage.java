@@ -47,7 +47,7 @@ public class AutoMessage extends JavaPlugin {
             public void run() {
                 String message = messages.get(currentMessageIndex);
                 getServer().getOnlinePlayers().forEach(p -> sendMsg(p, message));
-                getLogger().info(message);
+                //getLogger().info(message);
                 currentMessageIndex = (currentMessageIndex + 1) % messages.size(); // Cycle through messages
             }
         }.runTaskTimer(this, 0, interval * 20L).getTaskId();
