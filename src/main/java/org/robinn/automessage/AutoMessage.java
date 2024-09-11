@@ -1,12 +1,12 @@
 package org.robinn.automessage;
 
 import net.kyori.adventure.text.minimessage.MiniMessage;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +14,12 @@ import java.util.List;
 public class AutoMessage extends JavaPlugin {
     private final List<String> messages = new ArrayList<>();
     private int currentMessageIndex;
-    private int schedulerTask;
+    private BukkitTask schedulerTask;
     static MiniMessage mm = MiniMessage.miniMessage();
     private String prefix;
 
     public void onEnable() {
         saveDefaultConfig();
-
         initializeMessages();
     }
 
@@ -47,16 +46,15 @@ public class AutoMessage extends JavaPlugin {
             public void run() {
                 String message = messages.get(currentMessageIndex);
                 getServer().getOnlinePlayers().forEach(p -> sendMsg(p, message));
-                //getLogger().info(message);
                 currentMessageIndex = (currentMessageIndex + 1) % messages.size(); // Cycle through messages
             }
-        }.runTaskTimer(this, 0, interval * 20L).getTaskId();
+        }.runTaskTimer(this, 0, interval * 20L);
 
         getLogger().info("AutoMessage scheduler started.");
     }
 
     private void cancelScheduler() {
-        getServer().getScheduler().cancelTask(schedulerTask);
+        schedulerTask.cancel();
         getLogger().info("AutoMessage scheduler canceled.");
     }
 
@@ -97,9 +95,7 @@ public class AutoMessage extends JavaPlugin {
         }
 
         reloadConfig();
-
         cancelScheduler();
-
         initializeMessages();
 
         sender.sendMessage("Configuration reloaded.");
